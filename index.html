@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Felipe & Paula">
+<meta name="theme-color" content="#F9F7F2">
+<title>Felipe & Paula</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+:root{--bg:#F9F7F2;--bg2:#F5F0E8;--bg3:#EDE4D0;--gold:#8B7040;--gold2:#A08848;--gold3:#C4A862;--tx:#2C1F0A;--tx2:#5C4820;--tx3:#8B7040;--bd:#DDD0B0;--wh:#FFFFFF;--re:#A32D2D;--gr:#3B6D11;}
+html,body{height:100%;background:var(--bg);font-family:Georgia,serif;overflow:hidden;}
+#app{height:100vh;overflow-y:auto;background:var(--bg);max-width:430px;margin:0 auto;}
+.pg{display:none;flex-direction:column;padding:24px 18px;gap:12px;min-height:100vh;}
+.pg.on{display:flex;}
+.logo-t{font-size:21px;font-weight:500;color:var(--tx);text-align:center;letter-spacing:.03em;}
+.logo-s{font-size:11px;color:var(--tx3);letter-spacing:.1em;text-align:center;margin-top:3px;}
+.lbl{font-size:11px;color:var(--tx3);font-weight:500;letter-spacing:.08em;margin-bottom:4px;font-family:sans-serif;}
+.fi{background:var(--wh);border:1px solid var(--bd);border-radius:10px;padding:11px 13px;width:100%;font-size:15px;font-family:Georgia,serif;color:var(--tx);}
+.fi:focus{outline:none;border-color:var(--gold);}
+.fi-ro{background:var(--bg2);color:var(--tx2);}
+.bg{background:var(--gold);color:var(--wh);border:none;border-radius:12px;padding:13px;font-size:15px;font-family:Georgia,serif;cursor:pointer;width:100%;transition:background .2s;}
+.bg:hover{background:var(--gold2);}
+.bo{background:transparent;color:var(--gold);border:1.5px solid var(--gold3);border-radius:12px;padding:10px;font-size:13px;font-family:Georgia,serif;cursor:pointer;width:100%;}
+.card{background:var(--wh);border:1px solid var(--bd);border-radius:14px;padding:15px;}
+.ct{font-size:14px;font-weight:500;color:var(--tx);margin-bottom:5px;}
+.cb{font-size:13px;color:var(--tx2);line-height:1.75;}
+.err{font-size:12px;color:var(--re);display:none;margin-top:4px;font-family:sans-serif;}
+.ok2{font-size:12px;color:var(--gr);display:none;margin-top:4px;font-family:sans-serif;}
+.cd-box{background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:16px;text-align:center;}
+.cd-n{font-size:36px;color:var(--gold);font-weight:500;}
+.cd-l{font-size:11px;color:var(--tx3);letter-spacing:.08em;margin-top:4px;font-family:sans-serif;}
+.prog{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;}
+.pf{height:100%;background:var(--gold);border-radius:2px;transition:width .4s;}
+.qa{width:100%;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;padding:9px 11px;font-size:13px;font-family:Georgia,serif;color:var(--tx);resize:none;}
+.qa:focus{outline:none;border-color:var(--gold);}
+.a-img{width:100%;height:120px;background:var(--bg3);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:10px;}
+.dots{display:flex;gap:6px;justify-content:center;}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--bg3);}
+.dot.on{background:var(--gold);}
+.opt{background:var(--wh);border:1.5px solid var(--bd);border-radius:12px;padding:12px;font-size:14px;color:var(--tx);cursor:pointer;width:100%;margin-bottom:8px;text-align:left;}
+.opt.sel{border-color:var(--gold);background:var(--bg2);color:var(--gold);}
+.mg{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.mb{background:var(--wh);border:1px solid var(--bd);border-radius:14px;padding:14px 10px;text-align:center;cursor:pointer;transition:border-color .2s;}
+.mb:hover{border-color:var(--gold3);}
+.mb i{font-size:22px;color:var(--gold);display:block;margin-bottom:6px;}
+.mb span{font-size:12px;color:var(--tx2);font-weight:500;font-family:sans-serif;}
+.ctr{text-align:center;background:var(--wh);border:1px solid var(--bd);border-radius:16px;padding:18px;}
+.ctr-d{font-size:36px;color:var(--gold);font-weight:500;}
+.ir{display:flex;gap:9px;align-items:flex-start;margin-bottom:9px;}
+.in{width:24px;height:24px;border-radius:50%;background:var(--bg3);border:1px solid var(--bd);display:flex;align-items:center;justify-content:center;font-size:11px;color:var(--tx2);flex-shrink:0;margin-top:2px;font-family:sans-serif;}
+.it{font-size:13px;color:var(--tx2);line-height:1.65;}
+.us-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.us-btn{padding:12px;border:1.5px solid var(--bd);border-radius:12px;background:var(--wh);cursor:pointer;text-align:center;transition:all .2s;}
+.us-btn.act{border-color:var(--gold);background:var(--bg2);}
+.us-name{font-size:15px;font-weight:500;color:var(--tx);}
+.us-role{font-size:11px;color:var(--tx3);font-family:sans-serif;}
+.exp-row{background:var(--wh);border:1px solid var(--bd);border-radius:12px;padding:11px;margin-bottom:8px;display:flex;align-items:center;gap:10px;cursor:pointer;}
+.exp-cb{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--bd);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
+.exp-cb.done{background:var(--gold);border-color:var(--gold);}
+.exp-tx{font-size:13px;color:var(--tx2);flex:1;line-height:1.4;}
+.exp-tx.done{text-decoration:line-through;color:var(--tx3);}
+.tl-wrap{display:flex;gap:10px;margin-bottom:14px;}
+.tl-spine{display:flex;flex-direction:column;align-items:center;}
+.tl-dot{width:13px;height:13px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:4px;}
+.tl-line{width:2px;flex:1;background:var(--bd);margin:3px 0;}
+.bk{background:transparent;border:1px solid var(--bd);border-radius:8px;padding:5px 13px;font-size:12px;color:var(--gold);cursor:pointer;font-family:sans-serif;margin-bottom:4px;display:inline-block;}
+.sc-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+.sc-cell{background:var(--bg2);border-radius:6px;padding:7px 9px;font-size:12px;color:var(--tx2);}
+.sc-lbl{font-size:10px;color:var(--tx3);margin-bottom:3px;font-family:sans-serif;}
+.chk-wrap{display:flex;gap:8px;align-items:center;margin-top:7px;}
+.chk-btn{width:32px;height:32px;border-radius:50%;border:1.5px solid var(--bd);background:var(--wh);cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.chk-btn.yes{background:#3B6D11;border-color:#3B6D11;color:white;}
+.chk-btn.no{background:#A32D2D;border-color:#A32D2D;color:white;}
+.mem-card{background:var(--wh);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:9px;}
+.mem-q{font-size:11px;color:var(--tx3);margin-bottom:5px;font-family:sans-serif;font-weight:500;letter-spacing:.04em;}
+.mem-a{font-size:13px;color:var(--tx2);line-height:1.6;font-style:italic;}
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%);background:#2C1F0A;color:white;padding:10px 20px;border-radius:20px;font-size:13px;font-family:sans-serif;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;}
+.loading{text-align:center;padding:20px;font-size:13px;color:var(--tx3);font-family:sans-serif;}
+.spinner{width:24px;height:24px;border:3px solid var(--bg3);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 8px;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.note-card{background:var(--wh);border:1px solid var(--bd);border-radius:12px;padding:13px;margin-bottom:8px;}
+.note-meta{font-size:10px;color:var(--tx3);font-family:sans-serif;margin-top:6px;}
+</style>
+</head>
+<body>
+<div id="app">
+
+  <div class="pg on" id="pg-login">
+    <div style="padding-top:10px;">
+      <div class="logo-t" id="ltitle">Felipe &amp; Paula</div>
+      <div class="logo-s">App Privada</div>
+    </div>
+    <div class="us-grid">
+      <div class="us-btn" id="us-p" onclick="selU('paula')">
+        <div class="us-name" id="upn">Huggies</div>
+        <div class="us-role">ella</div>
+      </div>
+      <div class="us-btn" id="us-f" onclick="selU('felipe')">
+        <div class="us-name" id="ufn">Felipe</div>
+        <div class="us-role">él</div>
+      </div>
+    </div>
+    <div class="card" style="text-align:center;">
+      <div class="cb">Hola <strong style="color:var(--gold);" id="login-hint">Huggies</strong>, la contraseña es la fecha en la cual saliste por primera vez con el papasito de Felipe, así que pon a trabajar tus recuerdos.<br><br>El formato en el cual debes poner la fecha es <strong style="color:var(--gold);">(DDMMAAAA)</strong></div>
+    </div>
+    <div>
+      <div class="lbl">USUARIO</div>
+      <div class="fi fi-ro" id="udis">Selecciona quién eres</div>
+    </div>
+    <div>
+      <div class="lbl">CONTRASEÑA</div>
+      <input class="fi" type="password" id="pin" placeholder="Ej: 15082019 (sin guiones)" oninput="hideEl('perr','uerr')">
+      <div style="font-size:11px;color:var(--tx3);margin-top:4px;font-family:sans-serif;">Sin guiones ni espacios. Ej: 15082019</div>
+      <div class="err" id="uerr">Primero selecciona quién eres</div>
+      <div class="err" id="perr">Hmm, esa no es... pon a trabajar esa memoria</div>
+    </div>
+    <div class="bg" id="login-btn" onclick="tryLogin()">Ingresar</div>
+    <div id="login-loading" class="loading" style="display:none;"><div class="spinner"></div>Entrando...</div>
+  </div>
+
+  <div class="pg" id="pg-welcome">
+    <div style="padding-top:4px;"><div class="logo-t">Bienvenida, <span id="wname">Huggies</span></div></div>
+    <div class="card"><div class="cb">El día de hoy tendrás una experiencia especial e interactiva. Yo te acompañaré en esta noche para que todo sea más sencillo y puedas desbloquear cada sección diseñada específicamente para ti.</div></div>
+    <div class="bg" onclick="goTo('pg-dress')">Comencemos</div>
+  </div>
+
+  <div class="pg" id="pg-dress">
+    <div class="card">
+      <div class="ct">Una cosa antes de salir...</div>
+      <div class="cb">Vístete linda, siéntete cómoda. Tampoco te vayas de gala, pero sí muy bonita. Dale en el gusto a tu hombre, sorpréndelo...<br><br><span style="color:var(--gold3);">Una pista: le gusta mucho que te hagas peinados lindos y uses tonos fuertes en la ropa.</span></div>
+    </div>
+    <div class="cd-box">
+      <div class="cd-n" id="cd">--:--:--</div>
+      <div class="cd-l">PARA LAS 7:00 PM</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:6px;font-family:sans-serif;min-height:18px;" id="stitch"></div>
+    </div>
+    <div id="rdy" style="display:none;">
+      <div class="card"><div class="cb">¿Ya estás con Felipe? Responde solo cuando estés con él.</div></div>
+      <div class="bg" onclick="goTo('pg-car')" style="margin-top:8px;">Sí, ya estoy con él</div>
+    </div>
+  </div>
+
+  <div class="pg" id="pg-car">
+    <div style="font-size:11px;color:var(--tx3);letter-spacing:.07em;font-family:sans-serif;">TRAYECTO AL RESTAURANTE</div>
+    <div class="card"><div class="cb">Asumo que fuiste sincera y ya estás con Felipe. En estos momentos se dirigen al restaurante. Es buen momento para que contestes unas preguntas:</div></div>
+    <div class="prog"><div class="pf" id="qprog" style="width:0%"></div></div>
+    <div id="pqs">
+      <div style="font-size:11px;color:var(--tx3);margin-bottom:8px;font-family:sans-serif;">TUS RESPUESTAS, <span id="pqlbl">HUGGIES</span></div>
+      <div class="card" style="margin-bottom:8px;"><div class="cb" style="margin-bottom:6px;">¿Cuál ha sido tu momento favorito conmigo? ¿Y por qué?</div><textarea class="qa" rows="2" id="pq0" oninput="upProg()" placeholder="Escribe aquí..."></textarea></div>
+      <div class="card" style="margin-bottom:8px;"><div class="cb" style="margin-bottom:6px;">¿Qué pensaste la primera vez que me viste? ¡Aparte de que estoy bien bueno! jaja</div><textarea class="qa" rows="2" id="pq1" oninput="upProg()" placeholder="Escribe aquí..."></textarea></div>
+      <div class="card" style="margin-bottom:8px;"><div class="cb" style="margin-bottom:6px;">¿Qué es lo que más te gusta de nosotros y de nuestra relación?</div><textarea class="qa" rows="2" id="pq2" oninput="upProg()" placeholder="Escribe aquí..."></textarea></div>
+      <div class="card" style="margin-bottom:8px;"><div class="cb" style="margin-bottom:6px;">¿En dónde fue nuestra primera cita?</div><textarea class="qa" rows="2" id="pq3" oninput="upProg()" placeholder="Escribe aquí..."></textarea></div>
+      <div class="card" style="margin-bottom:8px;"><div class="cb" style="margin-bottom:6px;">Dime una experiencia que quieras vivir conmigo.</div><textarea class="qa" rows="2" id="pq4" oninput="upProg()" placeholder="Escribe aquí..."></textarea></div>
+      <div class="bg" onclick="showFQ()">Listo, respondí todo</div>
+    </div>
+    <div id="fqs" style="display:none;">
+      <div class="card" style="border-color:var(--gold3);margin-bottom:9px;"><div class="cb" style="text-align:center;">Ahora es el turno de <strong style="color:var(--gold);" id="fqlbl">Felipe</strong>.<br><strong style="color:var(--gold);">Entrégale el celular.</strong></div></div>
+      <div style="font-size:11px;color:var(--tx3);margin-bottom:8px;font-family:sans-serif;">RESPUESTAS DE <span id="fqlbl2">FELIPE</span></div>
+      <div class="card" style="margin-bottom:8px;"><div class="cb" style="margin-bottom:6px;">¿Cuál ha sido tu momento favorito con <span class="pref">Huggies</span>?</div><textarea class="qa" rows="2" id="fq0" placeholder="Felipe responde..."></textarea></div>
+      <div class="card" style="margin-bottom:8px;"><div class="cb" style="margin-bottom:6px;">¿Qué pensaste la primera vez que viste a <span class="pref">Huggies</span>?</div><textarea class="qa" rows="2" id="fq1" placeholder="Felipe responde..."></textarea></div>
+      <div class="card" style="margin-bottom:8px;"><div class="cb" style="margin-bottom:6px;">¿Qué es lo que más te gusta de su relación?</div><textarea class="qa" rows="2" id="fq2" placeholder="Felipe responde..."></textarea></div>
+      <div class="card" style="margin-bottom:8px;"><div class="cb" style="margin-bottom:6px;">¿Dónde fue su primera cita?</div><textarea class="qa" rows="2" id="fq3" placeholder="Felipe responde..."></textarea></div>
+      <div class="card" style="margin-bottom:8px;"><div class="cb" style="margin-bottom:6px;">¿Qué experiencia quieres vivir con <span class="pref">Huggies</span>?</div><textarea class="qa" rows="2" id="fq4" placeholder="Felipe responde..."></textarea></div>
+      <div class="bg" onclick="showScores()">Ver resultados juntos</div>
+    </div>
+    <div id="sc-area" style="display:none;">
+      <div class="card" style="border-color:var(--gold3);margin-bottom:9px;"><div class="cb" style="text-align:center;color:var(--gold);">Lean las respuestas juntos y marquen si coincidieron.</div></div>
+      <div id="sc-cards"></div>
+      <div id="sc-summary" style="display:none;"></div>
+      <div id="leaving-blk" style="display:none;">
+        <input class="fi" id="leav-in" placeholder='Escribe "ya nos vamos"...' style="margin-top:4px;">
+        <div class="err" id="leav-err">No todavía...</div>
+        <div class="bg" onclick="cw('leav-in','leav-err',['vamos'],'pg-arch')" style="margin-top:9px;">Enviar</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg" id="pg-arch">
+    <div style="font-size:11px;color:var(--tx3);letter-spacing:.07em;font-family:sans-serif;">DATOS QUE QUIZÁS YA SABES</div>
+    <div id="arch-content"></div>
+    <div class="dots" id="arch-dots" style="margin:6px 0;"></div>
+    <div class="bg" id="arch-btn" onclick="nextArch()">Siguiente</div>
+  </div>
+
+  <div class="pg" id="pg-arrive">
+    <div class="card"><div class="ct" style="text-align:center;">Descansemos un poco</div><div style="text-align:center;padding:12px 0;"><i class="ti ti-moon" style="font-size:42px;color:var(--gold3);"></i></div><div class="cb" style="text-align:center;font-style:italic;font-size:12px;color:var(--tx3);">[Foto de <span class="pref">Huggies</span> durmiendo]</div></div>
+    <div class="card"><div class="cb">Avísame con un <strong style="color:var(--gold)">"ya llegamos"</strong> una vez lleguen al restaurante y estén sentados.</div></div>
+    <input class="fi" id="arr-in" placeholder='Escribe "ya llegamos"...'>
+    <div class="err" id="arr-err">Todavía no... avísame cuando lleguen</div>
+    <div class="bg" onclick="cw('arr-in','arr-err',['llegamos','llegue'],'pg-dinner')">Enviar</div>
+  </div>
+
+  <div class="pg" id="pg-dinner">
+    <div class="card"><div class="ct">Ya que están allá...</div><div class="cb">Tómense un par de fotos. Conociéndote... hasta que salga una bonita jaja.</div></div>
+    <div class="card"><div class="ct">Instrucciones para la cena</div>
+      <div class="ir"><div class="in">1</div><div class="it">Mira la carta y escoge lo que quieras.</div></div>
+      <div class="ir"><div class="in">2</div><div class="it">Cuéntale tu día a Felipe, normalmente él habla mucho, así que es tu momento.</div></div>
+      <div class="ir"><div class="in">3</div><div class="it">Disfruta tu comida y prueba un poco de la de él. OJO — hablo DE LA COMIDAAA</div></div>
+      <div class="ir"><div class="in">4</div><div class="it">Una vez terminen, pídele a Felipe la tarjeta con el código.</div></div>
+    </div>
+    <div><div class="lbl">CÓDIGO DE FELIPE</div>
+      <input class="fi" id="c1-in" placeholder="Código de la tarjeta..." style="text-transform:uppercase;">
+      <div class="err" id="c1-err">Código incorrecto. Pídéselo otra vez</div>
+    </div>
+    <div class="bg" onclick="cc('c1-in','c1-err','FYP0614','pg-drinks')">Ingresar código</div>
+  </div>
+
+  <div class="pg" id="pg-drinks">
+    <div class="card"><div class="cb">Espero disfrutaras tu comida, y la de Felipe jajaja. Ahora van por unas bebidas. Avísame con <strong style="color:var(--gold)">"ya llegamos"</strong> cuando estén sentados.</div></div>
+    <input class="fi" id="dr-in" placeholder='Escribe "ya llegamos"...'>
+    <div class="err" id="dr-err">Todavía no</div>
+    <div class="bg" onclick="cw('dr-in','dr-err',['llegamos','llegue'],'pg-game')">Enviar</div>
+  </div>
+
+  <div class="pg" id="pg-game">
+    <div class="card"><div class="ct">Test de pareja</div><div class="cb">Adivina qué respondería <span id="fref">Felipe</span>. Luego lean las respuestas juntos.</div></div>
+    <div id="g-paula"></div>
+    <div id="g-felipe" style="display:none;">
+      <div class="card" style="border-color:var(--gold3);margin-bottom:9px;"><div class="cb" style="text-align:center;">Ahora es el turno de <strong style="color:var(--gold);" id="gflbl">Felipe</strong>.<br><strong style="color:var(--gold);">Entrégale el celular.</strong></div></div>
+      <div id="g-felipe-qs"></div>
+      <div class="bg" onclick="showGameScores()" style="margin-top:4px;">Ver resultados juntos</div>
+    </div>
+    <div id="g-scores" style="display:none;">
+      <div class="card" style="border-color:var(--gold3);margin-bottom:9px;"><div class="cb" style="text-align:center;color:var(--gold);">Comparen y marquen si coincidieron.</div></div>
+      <div id="g-score-cards"></div>
+      <div id="g-final" style="display:none;"></div>
+      <div id="g-leaving" style="display:none;">
+        <input class="fi" id="gleav-in" placeholder='Escribe "ya nos vamos"...' style="margin-top:9px;">
+        <div class="err" id="gleav-err">No todavía</div>
+        <div class="bg" onclick="cw('gleav-in','gleav-err',['vamos'],'pg-home')" style="margin-top:9px;">Enviar</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg" id="pg-home">
+    <div class="card"><div class="cb">Espero que hayan pasado una noche increíble. Nuestra experiencia interactiva está llegando a su fin...<br><br>Una vez lleguen a la puerta de la casa con Felipe, antes de ingresar pídele el siguiente código.</div></div>
+    <div><div class="lbl">SEGUNDO CÓDIGO</div>
+      <input class="fi" id="c2-in" placeholder="Código de la segunda tarjeta..." style="text-transform:uppercase;">
+      <div class="err" id="c2-err">Ese no es... pídéselo de nuevo</div>
+    </div>
+    <div class="bg" onclick="cc('c2-in','c2-err','PAULAAMAAPIPE','pg-riddles')">Ingresar código</div>
+  </div>
+
+  <div class="pg" id="pg-riddles">
+    <div class="card"><div class="cb">Sé que te dije que esta experiencia estaba llegando a su fin, sin embargo aún me queda un AS bajo la manga. Sigue exactamente lo que te pido. Al baño sí puedes ir.</div></div>
+    <div id="r1">
+      <div class="card"><div class="ct">Acertijo 1 de 3</div><div class="cb">Dos personas se encontraron por primera vez sin buscarse, en un lugar donde la gente va a compartir y a comer... pero ese encuentro fue el inicio de todo. ¿Dónde fue?</div></div>
+      <input class="fi" id="r1-in" placeholder="Tu respuesta...">
+      <div class="err" id="r1-err">Hmm, piensa un poco más...</div>
+      <div class="ok2" id="r1-ok">✓ Correcto. Pista: busca en el sofá</div>
+      <div class="bg" onclick="chkR(1)" style="margin-top:9px;">Responder</div>
+    </div>
+    <div id="r2" style="display:none;">
+      <div class="card"><div class="ct">Acertijo 2 de 3</div><div class="cb">Hay un lugar en Colombia donde el agua tiene color esmeralda y el frío se siente en los huesos, pero ese día el corazón de alguien entró en calor. ¿Cuál es ese lugar mágico?</div></div>
+      <input class="fi" id="r2-in" placeholder="Tu respuesta...">
+      <div class="err" id="r2-err">Piensa... fue un viaje. Frío. Especial.</div>
+      <div class="ok2" id="r2-ok">✓ Exacto. Pista: busca en el cajón de los cubiertos</div>
+      <div class="bg" onclick="chkR(2)" style="margin-top:9px;">Responder</div>
+    </div>
+    <div id="r3" style="display:none;">
+      <div class="card"><div class="ct">Acertijo 3 de 3</div><div class="cb">Empezó como un match en una app, pero terminó siendo el match más importante de su vida. ¿Cómo se llama esa app donde todo comenzó?</div></div>
+      <input class="fi" id="r3-in" placeholder="Tu respuesta...">
+      <div class="err" id="r3-err">Vamos... esa app la tienes instalada todavía</div>
+      <div class="ok2" id="r3-ok">✓ Bien. Pista: busca en el computador de Felipe (debe estar encendido)</div>
+      <div class="bg" onclick="chkR(3)" style="margin-top:9px;">Responder</div>
+    </div>
+    <div id="rcode" style="display:none;">
+      <div class="card"><div class="cb">Encontraste la tercera parte de la carta. Ingresa el código final que está al final de ella.</div></div>
+      <input class="fi" id="rc-in" placeholder="Código final..." style="text-transform:uppercase;">
+      <div class="err" id="rc-err">Ese no es el código correcto</div>
+      <div class="bg" onclick="cc('rc-in','rc-err','FELIPETEAMA','pg-reveal')" style="margin-top:9px;">Ingresar código</div>
+    </div>
+  </div>
+
+  <div class="pg" id="pg-reveal">
+    <div class="card" style="text-align:center;"><div class="cb" style="font-size:14px;line-height:1.9;">Ahora sí, en este punto probablemente ya descubriste mis negras intenciones...<br><br>Vamos a ver tu reacción.<br><br><strong style="color:var(--gold);font-size:15px;">Ingresa al cuarto de Felipe.</strong></div></div>
+    <div class="bg" onclick="goTo('pg-question')">Continuemos — la experiencia en la app aún no termina</div>
+  </div>
+
+  <div class="pg" id="pg-question">
+    <div style="text-align:center;padding:10px 0;"><i class="ti ti-heart" style="font-size:44px;color:var(--gold);"></i></div>
+    <div class="card"><div class="cb" style="text-align:center;font-size:16px;line-height:1.8;">¿Cuál fue tu respuesta, <span id="qname">Huggies</span>?</div></div>
+    <button class="opt" id="ans-a" onclick="pick('a')">A. SÍ</button>
+    <button class="opt" id="ans-b" onclick="pick('b')">B. CLARO QUE SÍ</button>
+    <button class="opt" id="ans-c" onclick="pick('c')">C. A y B son correctas.</button>
+    <div class="bg" id="ans-ok" style="display:none;" onclick="confirmAnswer()">Confirmar respuesta</div>
+    <div id="ans-loading" class="loading" style="display:none;"><div class="spinner"></div>Guardando...</div>
+  </div>
+
+  <div class="pg" id="pg-couple">
+    <div class="ctr">
+      <div style="font-size:11px;color:var(--tx3);letter-spacing:.08em;margin-bottom:4px;font-family:sans-serif;">JUNTOS DESDE</div>
+      <div class="ctr-d" id="days">0</div>
+      <div style="font-size:12px;color:var(--tx3);margin-top:4px;font-family:sans-serif;" id="ddet">calculando...</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:9px;border-top:1px solid var(--bd);padding-top:8px;font-family:sans-serif;" id="dsince"></div>
+    </div>
+    <div class="mg">
+      <div class="mb" onclick="goTo('pg-gallery')"><i class="ti ti-photo"></i><span>Galería</span></div>
+      <div class="mb" onclick="goTo('pg-difficult')"><i class="ti ti-cloud-storm"></i><span>Momentos difíciles</span></div>
+      <div class="mb" onclick="goTo('pg-exp')"><i class="ti ti-map"></i><span>Experiencias</span></div>
+      <div class="mb" onclick="goTo('pg-goals')"><i class="ti ti-star"></i><span>Nuestras metas</span></div>
+      <div class="mb" onclick="goTo('pg-moments')"><i class="ti ti-heart"></i><span>Mejores momentos</span></div>
+      <div class="mb" onclick="goTo('pg-songs')"><i class="ti ti-music"></i><span>Canciones</span></div>
+    </div>
+    <div class="mb" style="border-radius:14px;padding:14px;" onclick="goTo('pg-timeline')"><i class="ti ti-timeline" style="font-size:22px;color:var(--gold);display:block;margin-bottom:6px;"></i><span style="font-size:12px;color:var(--tx2);font-weight:500;font-family:sans-serif;">Línea de tiempo</span></div>
+    <div class="mb" style="border-radius:14px;padding:14px;border-color:var(--gold3);" onclick="goTo('pg-memory')"><i class="ti ti-sparkles" style="font-size:22px;color:var(--gold);display:block;margin-bottom:6px;"></i><span style="font-size:12px;color:var(--tx2);font-weight:500;font-family:sans-serif;">La noche de nuestra historia</span></div>
+    <div class="card">
+      <div class="ct" style="font-size:13px;">Mi nombre en la app</div>
+      <div style="display:flex;gap:8px;margin-top:7px;">
+        <input class="fi" id="unf" placeholder="Tu nombre..." style="flex:1;">
+        <button onclick="saveUN()" style="padding:9px 13px;background:var(--gold);color:var(--wh);border:none;border-radius:8px;font-size:12px;cursor:pointer;font-family:sans-serif;">Guardar</button>
+      </div>
+      <div class="ok2" id="un-ok" style="margin-top:5px;">✓ Nombre actualizado</div>
+    </div>
+    <div class="bo" onclick="logout()" style="font-size:12px;">Cerrar sesión</div>
+  </div>
+
+  <div class="pg" id="pg-memory">
+    <button class="bk" onclick="goTo('pg-couple')">← Volver</button>
+    <div style="text-align:center;padding:6px 0 10px;">
+      <i class="ti ti-sparkles" style="font-size:30px;color:var(--gold);"></i>
+      <div class="logo-t" style="font-size:18px;margin-top:5px;">La noche de nuestra historia</div>
+      <div style="font-size:12px;color:var(--tx3);margin-top:3px;font-family:sans-serif;">Un recuerdo que queda para siempre</div>
+    </div>
+    <div id="mem-content"><div class="loading"><div class="spinner"></div>Cargando recuerdos...</div></div>
+  </div>
+
+  <div class="pg" id="pg-gallery">
+    <button class="bk" onclick="goTo('pg-couple')">← Volver</button>
+    <div class="card"><div class="ct">Galería</div><div class="cb">Espacio para los recuerdos visuales de su historia.</div></div>
+    <div class="card"><div class="ct" style="font-size:13px;">Mi Propuesta</div><div class="bo" style="margin-top:9px;font-size:12px;">+ Agregar fotos y videos</div></div>
+    <div class="card"><div class="ct" style="font-size:13px;">Solo fotos</div><div class="bo" style="margin-top:9px;font-size:12px;">+ Subir foto</div></div>
+    <div class="card"><div class="ct" style="font-size:13px;">Solo videos</div><div class="bo" style="margin-top:9px;font-size:12px;">+ Subir video</div></div>
+  </div>
+
+  <div class="pg" id="pg-difficult">
+    <button class="bk" onclick="goTo('pg-couple')">← Volver</button>
+    <div class="card"><div class="ct">Momentos difíciles</div><div class="cb">Los momentos que superaron juntos.</div></div>
+    <div id="diff-list"><div class="loading"><div class="spinner"></div>Cargando...</div></div>
+    <div class="card"><div class="ct" style="font-size:13px;">+ Agregar momento</div>
+      <input class="fi" id="dif-t" placeholder="Título..." style="margin-bottom:8px;">
+      <textarea class="qa" id="dif-b" rows="3" placeholder="Qué pasó y cómo lo superaron..."></textarea>
+      <div class="bg" onclick="addNote('difficult','dif-t','dif-b','diff-list')" style="margin-top:9px;">Guardar</div>
+    </div>
+  </div>
+
+  <div class="pg" id="pg-exp">
+    <button class="bk" onclick="goTo('pg-couple')">← Volver</button>
+    <div class="card">
+      <div class="ct">Experiencias</div>
+      <div class="cb">Cumplidas: <strong style="color:var(--gold);" id="exp-done">0</strong> de <strong id="exp-tot">0</strong></div>
+      <div class="prog" style="margin-top:8px;"><div class="pf" id="exp-prog" style="width:0%"></div></div>
+    </div>
+    <div id="exp-picker-wrap">
+      <div class="card" style="margin-bottom:7px;"><div class="cb" style="font-size:13px;text-align:center;">Selecciona las que quieren vivir y toca <strong style="color:var(--gold);">Agregar seleccionadas</strong>.</div></div>
+      <div id="exp-picker"></div>
+      <div class="bg" onclick="addSelExp()">Agregar seleccionadas</div>
+    </div>
+    <div id="exp-list" style="margin-top:7px;"></div>
+    <div class="card" style="margin-top:5px;"><div class="ct" style="font-size:13px;">+ Nueva experiencia</div>
+      <input class="fi" id="exp-new" placeholder="Escribe una experiencia nueva..." style="margin-bottom:8px;">
+      <div class="bg" onclick="addCustExp()" style="font-size:13px;">Agregar</div>
+    </div>
+  </div>
+
+  <div class="pg" id="pg-goals">
+    <button class="bk" onclick="goTo('pg-couple')">← Volver</button>
+    <div class="card"><div class="ct">Nuestras metas</div><div class="cb">Sus proyectos y sueños como pareja.</div></div>
+    <div id="goals-list"><div class="loading"><div class="spinner"></div>Cargando...</div></div>
+    <div class="card"><div class="ct" style="font-size:13px;">+ Nueva meta</div>
+      <input class="fi" id="gol-t" placeholder="Título..." style="margin-bottom:8px;">
+      <textarea class="qa" id="gol-b" rows="2" placeholder="Descríbela..."></textarea>
+      <div class="bg" onclick="addNote('goals','gol-t','gol-b','goals-list')" style="margin-top:9px;">Guardar</div>
+    </div>
+  </div>
+
+  <div class="pg" id="pg-moments">
+    <button class="bk" onclick="goTo('pg-couple')">← Volver</button>
+    <div class="card"><div class="ct">Mejores momentos</div><div class="cb">Los momentos que no quieren olvidar jamás.</div></div>
+    <div id="mom-list"><div class="loading"><div class="spinner"></div>Cargando...</div></div>
+    <div class="card"><div class="ct" style="font-size:13px;">+ Agregar momento</div>
+      <input class="fi" id="mom-t" placeholder="Título..." style="margin-bottom:8px;">
+      <textarea class="qa" id="mom-b" rows="2" placeholder="Cuéntalo..."></textarea>
+      <div class="bg" onclick="addNote('moments','mom-t','mom-b','mom-list')" style="margin-top:9px;">Guardar</div>
+    </div>
+  </div>
+
+  <div class="pg" id="pg-songs">
+    <button class="bk" onclick="goTo('pg-couple')">← Volver</button>
+    <div class="card"><div class="ct">Nuestras canciones</div><div class="cb">Las canciones que se han dedicado.</div></div>
+    <div id="songs-list"><div class="loading"><div class="spinner"></div>Cargando...</div></div>
+    <div class="card"><div class="ct" style="font-size:13px;">+ Agregar canción</div>
+      <input class="fi" id="son-t" placeholder="Nombre de la canción..." style="margin-bottom:8px;">
+      <input class="fi" id="son-a" placeholder="Artista..." style="margin-bottom:8px;">
+      <input class="fi" id="son-n" placeholder="Por qué es especial...">
+      <div class="bg" onclick="addSong()" style="margin-top:9px;">Guardar</div>
+    </div>
+  </div>
+
+  <div class="pg" id="pg-timeline">
+    <button class="bk" onclick="goTo('pg-couple')">← Volver</button>
+    <div class="card"><div class="ct">Línea de tiempo</div><div class="cb">Su historia en orden cronológico.</div></div>
+    <div id="tl-list"><div class="loading"><div class="spinner"></div>Cargando...</div></div>
+    <div class="card"><div class="ct" style="font-size:13px;">+ Agregar momento</div>
+      <input class="fi" id="tl-d" type="date" style="margin-bottom:8px;">
+      <input class="fi" id="tl-t" placeholder="¿Qué pasó?" style="margin-bottom:8px;">
+      <textarea class="qa" id="tl-b" rows="2" placeholder="¿Por qué fue especial?"></textarea>
+      <div class="bg" onclick="addTl()" style="margin-top:9px;">Guardar</div>
+    </div>
+  </div>
+
+</div>
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import{getAuth,signInWithEmailAndPassword,createUserWithEmailAndPassword}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import{getFirestore,doc,setDoc,getDoc,collection,addDoc,getDocs,updateDoc,orderBy,query}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+const FC={apiKey:"AIzaSyB3NBfEmwFbM5mEWxrWxt_2f_pNX-VX6d0",authDomain:"paula-app-32889.firebaseapp.com",projectId:"paula-app-32889",storageBucket:"paula-app-32889.firebasestorage.app",messagingSenderId:"7834886481",appId:"1:7834886481:web:2e1eb43ef55bf56d1cf370"};
+const fbApp=initializeApp(FC);
+const auth=getAuth(fbApp);
+const db=getFirestore(fbApp);
+const USERS={paula:{email:"paula@felipepaula.app",pass:"27112025"},felipe:{email:"felipe@felipepaula.app",pass:"27112025"}};
+window.ST={user:null,cStart:null,cdT:null,cpT:null,expInit:false,done:false};
+window.U={paula:{name:"Huggies"},felipe:{name:"Felipe"}};
+const pGA=[],fGA=[],gM=[],scM=[];
+let memAnswer="—";
+const carQs=["¿Cuál ha sido tu momento favorito conmigo? ¿Y por qué?","¿Qué pensaste la primera vez que me viste?","¿Qué es lo que más te gusta de nosotros?","¿En dónde fue nuestra primera cita?","Dime una experiencia que quieras vivir conmigo."];
+const expAll=["Ver el amanecer desde Monserrate, Bogotá","Road trip por la costa Caribe colombiana","Visitar la Ciudad Perdida en la Sierra Nevada","Ver las flores en el Festival de las Flores, Medellín","Picnic en los cerros orientales de Bogotá","Conocer el Desierto de la Tatacoa","Bañarse en las piscinas naturales de Suesca","Ver una puesta de sol en el eje cafetero","Cocinar juntos una receta nueva cada mes","Noche de cine en casa con palomitas y cobija","Bailar salsa en Cali","Senderismo en el Cocuy","Conocer Cartagena juntos de noche","Aprender un baile nuevo juntos","Pasar una noche en una cabaña sin internet","Asistir a un concierto de su artista favorito","Ver el mar en San Andrés","Hacer voluntariado juntos","Cita sorpresa mensual — uno planea todo","Ver una aurora boreal algún día"];
+const expSel=new Array(20).fill(false);
+const expList=[];
+const gQs=["Si pudieras vivir en cualquier país del mundo, ¿cuál elegirías?","¿Cuál es tu cualidad favorita de tu pareja?","Si tuvieras que describir tu noche perfecta, ¿cómo sería?","¿Qué canción elegirías como 'nuestra canción'?"];
+
+window.goTo=function(id){
+  document.querySelectorAll(".pg").forEach(p=>p.classList.remove("on"));
+  document.getElementById(id).classList.add("on");
+  document.getElementById("app").scrollTop=0;
+  if(id==="pg-dress")startCd();
+  if(id==="pg-arch")initArch();
+  if(id==="pg-game")initGame();
+  if(id==="pg-couple")initCouple();
+  if(id==="pg-exp")initExp();
+  if(id==="pg-timeline")loadNotes("timeline","tl-list",renderTlList);
+  if(id==="pg-difficult")loadNotes("difficult","diff-list",renderNoteList);
+  if(id==="pg-goals")loadNotes("goals","goals-list",renderNoteList);
+  if(id==="pg-moments")loadNotes("moments","mom-list",renderNoteList);
+  if(id==="pg-songs")loadNotes("songs","songs-list",renderSongList);
+  if(id==="pg-memory")renderMemory();
+};
+window.hideEl=function(...ids){ids.forEach(id=>document.getElementById(id).style.display="none");};
+window.showToast=function(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2500);};
+window.cw=function(inId,errId,kw,dest){const v=document.getElementById(inId).value.trim().toLowerCase();if(kw.some(k=>v.includes(k)))goTo(dest);else document.getElementById(errId).style.display="block";};
+window.cc=function(inId,errId,correct,dest){const v=document.getElementById(inId).value.trim().toUpperCase();if(v===correct)goTo(dest);else document.getElementById(errId).style.display="block";};
+
+window.selU=function(u){ST.user=u;document.getElementById("us-p").classList.toggle("act",u==="paula");document.getElementById("us-f").classList.toggle("act",u==="felipe");document.getElementById("udis").textContent=U[u].name;document.getElementById("login-hint").textContent=U[u].name;hideEl("perr","uerr");};
+
+window.tryLogin=async function(){
+  if(!ST.user){document.getElementById("uerr").style.display="block";return;}
+  if(document.getElementById("pin").value.trim()!=="27112025"){document.getElementById("perr").style.display="block";return;}
+  document.getElementById("login-btn").style.display="none";
+  document.getElementById("login-loading").style.display="block";
+  try{
+    const u=USERS[ST.user];
+    try{await signInWithEmailAndPassword(auth,u.email,u.pass);}
+    catch(e){if(e.code==="auth/user-not-found"||e.code==="auth/invalid-credential"||e.code==="auth/invalid-email"||e.code==="auth/INVALID_LOGIN_CREDENTIALS"){await createUserWithEmailAndPassword(auth,u.email,u.pass);}else throw e;}
+    const snap=await getDoc(doc(db,"users",ST.user));
+    if(snap.exists()&&snap.data().name)U[ST.user].name=snap.data().name;
+    const stateSnap=await getDoc(doc(db,"appState","main"));
+    if(stateSnap.exists()){const data=stateSnap.data();if(data.coupleStart)ST.cStart=new Date(data.coupleStart);if(data.done)ST.done=true;if(data.memAnswer)memAnswer=data.memAnswer;}
+    syncN();
+    goTo(ST.done?"pg-couple":"pg-welcome");
+  }catch(err){console.error(err);document.getElementById("perr").style.display="block";}
+  document.getElementById("login-btn").style.display="block";
+  document.getElementById("login-loading").style.display="none";
+};
+
+window.logout=function(){auth.signOut();ST.user=null;if(ST.cdT)clearInterval(ST.cdT);if(ST.cpT)clearInterval(ST.cpT);document.getElementById("pin").value="";document.getElementById("us-p").classList.remove("act");document.getElementById("us-f").classList.remove("act");document.getElementById("udis").textContent="Selecciona quién eres";document.getElementById("login-hint").textContent="Huggies";goTo("pg-login");};
+
+window.syncN=function(){
+  const pn=U.paula.name,fn=U.felipe.name;
+  document.getElementById("ltitle").textContent=fn+" & "+pn;
+  document.getElementById("upn").textContent=pn;
+  document.getElementById("ufn").textContent=fn;
+  document.getElementById("login-hint").textContent=ST.user==="felipe"?fn:pn;
+  const els={wname:ST.user?U[ST.user].name:"",qname:pn,pqlbl:pn.toUpperCase(),fqlbl:fn,fqlbl2:fn.toUpperCase(),fref:fn,gflbl:fn};
+  Object.entries(els).forEach(([id,val])=>{const el=document.getElementById(id);if(el)el.textContent=val;});
+  document.querySelectorAll(".pref").forEach(el=>el.textContent=pn);
+  if(document.getElementById("unf"))document.getElementById("unf").value=ST.user?U[ST.user].name:"";
+};
+
+window.saveUN=async function(){
+  const v=document.getElementById("unf").value.trim();if(!v||!ST.user)return;
+  U[ST.user].name=v;syncN();
+  await setDoc(doc(db,"users",ST.user),{name:v},{merge:true});
+  const ok=document.getElementById("un-ok");ok.style.display="block";setTimeout(()=>ok.style.display="none",2500);
+  showToast("Nombre actualizado en toda la app");
+};
+
+function startCd(){
+  if(ST.cdT)clearInterval(ST.cdT);
+  const el=document.getElementById("cd"),st=document.getElementById("stitch"),rb=document.getElementById("rdy");
+  let lb=-1;
+  function tick(){
+    const now=new Date(),t=new Date();t.setHours(19,0,0,0);
+    let diff=Math.floor((t-now)/1000);
+    if(diff<=0){clearInterval(ST.cdT);el.textContent="00:00:00";rb.style.display="block";return;}
+    const h=Math.floor(diff/3600),m=Math.floor((diff%3600)/60),s=diff%60;
+    el.textContent=(h<10?"0":"")+h+":"+(m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+    const mins=Math.floor(diff/60),b=Math.floor(mins/10);
+    if(b!==lb&&mins>0&&mins%10===0){lb=b;st.textContent='"Te quedan '+mins+' minutos, '+U.paula.name+'" — Stitch';setTimeout(()=>st.textContent="",9000);}
+  }
+  tick();ST.cdT=setInterval(tick,1000);
+}
+
+window.upProg=function(){const n=[0,1,2,3,4].filter(i=>document.getElementById("pq"+i)?.value.trim().length>0).length;document.getElementById("qprog").style.width=Math.round(n/5*100)+"%";};
+window.showFQ=function(){document.getElementById("pqs").style.display="none";document.getElementById("fqs").style.display="block";};
+window.showScores=async function(){
+  const pAns=[0,1,2,3,4].map(i=>document.getElementById("pq"+i)?.value||"");
+  const fAns=[0,1,2,3,4].map(i=>document.getElementById("fq"+i)?.value||"");
+  await setDoc(doc(db,"nightMemory","carAnswers"),{paula:pAns,felipe:fAns,ts:new Date().toISOString()},{merge:true});
+  document.getElementById("fqs").style.display="none";
+  document.getElementById("sc-area").style.display="block";
+  const labels=["¿Momento favorito?","¿Primera impresión?","¿Qué más les gusta?","¿Dónde fue la 1ª cita?","¿Experiencia juntos?"];
+  document.getElementById("sc-cards").innerHTML=labels.map((l,i)=>`<div class="card" style="margin-bottom:9px;"><div style="font-size:11px;color:var(--tx3);margin-bottom:6px;font-family:sans-serif;font-weight:500;">${l}</div><div class="sc-row"><div><div class="sc-lbl">${U.paula.name}</div><div class="sc-cell">${pAns[i]||"—"}</div></div><div><div class="sc-lbl">${U.felipe.name}</div><div class="sc-cell">${fAns[i]||"—"}</div></div></div><div class="chk-wrap"><div style="font-size:12px;color:var(--tx3);flex:1;font-family:sans-serif;">¿Coincidieron?</div><button class="chk-btn" onclick="markSc(${i},true,this)">✓</button><button class="chk-btn" onclick="markSc(${i},false,this)">✗</button></div></div>`).join("");
+};
+window.markSc=function(i,yes,btn){scM[i]=yes;btn.parentElement.querySelectorAll(".chk-btn").forEach(b=>b.className="chk-btn");btn.className="chk-btn "+(yes?"yes":"no");if(scM.filter(s=>s!==undefined).length===5){const hits=scM.filter(Boolean).length;const sf=document.getElementById("sc-summary");sf.style.display="block";sf.innerHTML=`<div class="card" style="border-color:var(--gold3);"><div class="ct" style="color:var(--gold);text-align:center;">Resultado</div><div class="cb" style="text-align:center;"><strong style="color:var(--gold);font-size:18px;">${hits} de 5</strong> coincidencias.<br>${hits===5?"¡Perfectos!":hits>=3?"Bastante bien.":"Hay trabajo por hacer, pero eso es lo divertido."}</div></div>`;document.getElementById("leaving-blk").style.display="block";}};
+
+const archData=[{icon:"ti-building",p:"La Torre Eiffel",f:"Gustave Eiffel mandó construir un apartamento secreto en la cima solo para él y sus invitados. El amor necesita altura."},{icon:"ti-building-arch",p:"El Taj Mahal",f:"El emperador Shah Jahan lo construyó para su esposa favorita. 22 años, 20.000 trabajadores. Solo por amor."},{icon:"ti-building-castle",p:"Castillo de Neuschwanstein",f:"El rey Luis II lo construyó para vivir sus sueños. Inspiró el castillo de Cenicienta. A veces los sueños sí se hacen realidad."},{icon:"ti-temple-hindu",p:"Chichén Itzá",f:"Cada equinoccio, el sol proyecta una sombra de serpiente en las escaleras. Algunos momentos están escritos para siempre."},{icon:"ti-bridge",p:"Puente de los Candados, París",f:"Parejas de todo el mundo ponían candados y lanzaban la llave al Sena. El peso del amor casi derrumbó el puente. Sí, el amor pesa."}];
+let ai=0;
+function initArch(){ai=0;renderArch();}
+function renderArch(){const d=archData[ai];document.getElementById("arch-dots").innerHTML=archData.map((_,i)=>`<div class="dot${i===ai?" on":""}"></div>`).join("");document.getElementById("arch-content").innerHTML=`<div class="a-img"><i class="ti ${d.icon}" style="font-size:46px;color:var(--gold3);"></i></div><div class="card"><div class="ct">${d.p}</div><div class="cb">${d.f}</div></div>`;document.getElementById("arch-btn").textContent=ai<archData.length-1?"Siguiente":"Continuemos...";}
+window.nextArch=function(){if(ai<archData.length-1){ai++;renderArch();}else goTo("pg-arrive");};
+
+function initGame(){document.getElementById("g-paula").innerHTML=gQs.map((q,i)=>`<div class="card" style="margin-bottom:9px;"><div class="cb" style="margin-bottom:6px;">${q}</div><textarea class="qa" rows="2" id="pgq${i}" placeholder="Lo que crees que él diría..."></textarea></div>`).join("")+`<div class="bg" onclick="submitGame()" style="margin-top:5px;">Listo, respondí todo</div>`;hideEl("g-felipe","g-scores");}
+window.submitGame=function(){gQs.forEach((_,i)=>pGA[i]=document.getElementById("pgq"+i)?.value||"");document.getElementById("g-paula").innerHTML="";document.getElementById("g-felipe").style.display="block";document.getElementById("g-felipe-qs").innerHTML=gQs.map((q,i)=>`<div class="card" style="margin-bottom:9px;"><div class="cb" style="margin-bottom:6px;">${q}</div><textarea class="qa" rows="2" id="fgq${i}" placeholder="${U.felipe.name} responde..."></textarea></div>`).join("");};
+window.showGameScores=async function(){gQs.forEach((_,i)=>fGA[i]=document.getElementById("fgq"+i)?.value||"");await setDoc(doc(db,"nightMemory","gameAnswers"),{paula:pGA,felipe:fGA,ts:new Date().toISOString()},{merge:true});document.getElementById("g-felipe").style.display="none";document.getElementById("g-scores").style.display="block";document.getElementById("g-score-cards").innerHTML=gQs.map((q,i)=>`<div class="card" style="margin-bottom:9px;"><div style="font-size:11px;color:var(--tx3);margin-bottom:6px;font-family:sans-serif;">${q}</div><div class="sc-row"><div><div class="sc-lbl">${U.paula.name}</div><div class="sc-cell">${pGA[i]||"—"}</div></div><div><div class="sc-lbl">${U.felipe.name}</div><div class="sc-cell">${fGA[i]||"—"}</div></div></div><div class="chk-wrap"><div style="font-size:12px;color:var(--tx3);flex:1;font-family:sans-serif;">¿Coincidieron?</div><button class="chk-btn" onclick="markG(${i},true,this)">✓</button><button class="chk-btn" onclick="markG(${i},false,this)">✗</button></div></div>`).join("");};
+window.markG=function(i,yes,btn){gM[i]=yes;btn.parentElement.querySelectorAll(".chk-btn").forEach(b=>b.className="chk-btn");btn.className="chk-btn "+(yes?"yes":"no");if(gM.filter(s=>s!==undefined).length===4){const hits=gM.filter(Boolean).length;const gf=document.getElementById("g-final");gf.style.display="block";gf.innerHTML=`<div class="card" style="border-color:var(--gold3);margin-bottom:9px;"><div class="ct" style="color:var(--gold);text-align:center;">Resultado</div><div class="cb" style="text-align:center;"><strong style="color:var(--gold);font-size:18px;">${hits} de 4</strong> coincidencias.<br>${hits===4?"¡Se conocen muy bien!":hits>=2?"Bastante bien.":"Hay trabajo por hacer."}</div></div>`;document.getElementById("g-leaving").style.display="block";}};
+
+window.chkR=function(n){const v=document.getElementById("r"+n+"-in").value.trim().toLowerCase();const ans={1:["restaurante","comer","comida","cena"],2:["tota","laguna","duitama","boyaca"],3:["bumble"]};const nxt={1:"r2",2:"r3",3:"rcode"};if(ans[n].some(a=>v.includes(a))){document.getElementById("r"+n+"-ok").style.display="block";document.getElementById("r"+n+"-err").style.display="none";if(nxt[n])setTimeout(()=>document.getElementById(nxt[n]).style.display="block",700);}else document.getElementById("r"+n+"-err").style.display="block";};
+
+window.pick=function(a){["a","b","c"].forEach(x=>document.getElementById("ans-"+x).classList.remove("sel"));document.getElementById("ans-"+a).classList.add("sel");document.getElementById("ans-ok").style.display="block";const labels={a:"A. SÍ",b:"B. CLARO QUE SÍ",c:"C. A y B son correctas."};memAnswer=labels[a];};
+window.confirmAnswer=async function(){
+  document.getElementById("ans-ok").style.display="none";document.getElementById("ans-loading").style.display="block";
+  const now=new Date();ST.cStart=now;ST.done=true;
+  await setDoc(doc(db,"appState","main"),{coupleStart:now.toISOString(),done:true,memAnswer},{merge:true});
+  await setDoc(doc(db,"nightMemory","proposal"),{answer:memAnswer,ts:now.toISOString()},{merge:true});
+  await addDoc(collection(db,"timeline"),{date:now.toISOString().split("T")[0],title:"Oficialmente novios",body:"La noche que todo cambió.",user:U[ST.user]?.name||"",ts:now.toISOString()});
+  document.getElementById("ans-loading").style.display="none";
+  goTo("pg-couple");
+};
+
+function initCouple(){
+  if(ST.cpT)clearInterval(ST.cpT);
+  if(!ST.cStart){document.getElementById("days").textContent="0";document.getElementById("ddet").textContent="—";document.getElementById("dsince").textContent="Aún no han iniciado";return;}
+  const opts={year:"numeric",month:"long",day:"numeric",hour:"2-digit",minute:"2-digit"};
+  document.getElementById("dsince").textContent="Desde el "+ST.cStart.toLocaleDateString("es-CO",opts);
+  if(document.getElementById("unf"))document.getElementById("unf").value=ST.user?U[ST.user].name:"";
+  function tick(){const diff=Math.floor((new Date()-ST.cStart)/1000);document.getElementById("days").textContent=Math.floor(diff/86400);const h=Math.floor((diff%86400)/3600),m=Math.floor((diff%3600)/60),s=diff%60;document.getElementById("ddet").textContent=h+"h "+m+"m "+s+"s juntos";}
+  tick();ST.cpT=setInterval(tick,1000);
+}
+
+async function loadNotes(col,listId,renderFn){
+  document.getElementById(listId).innerHTML=`<div class="loading"><div class="spinner"></div>Cargando...</div>`;
+  try{const q2=query(collection(db,col),orderBy("ts","desc"));const snap=await getDocs(q2);const items=snap.docs.map(d=>({id:d.id,...d.data()}));renderFn(items,listId);}
+  catch(e){document.getElementById(listId).innerHTML=`<div class="loading">Error cargando datos.</div>`;}
+}
+window.addNote=async function(col,tId,bId,listId){
+  const t=document.getElementById(tId).value.trim();const b=document.getElementById(bId).value.trim();if(!t)return;
+  await addDoc(collection(db,col),{title:t,body:b,user:U[ST.user]?.name||"",ts:new Date().toISOString()});
+  document.getElementById(tId).value="";document.getElementById(bId).value="";showToast("Guardado ✓");
+  loadNotes(col,listId,col==="songs"?renderSongList:renderNoteList);
+};
+function renderNoteList(items,listId){if(!items.length){document.getElementById(listId).innerHTML=`<div class="loading" style="color:var(--tx3);">Nada aún. ¡Agrega el primero!</div>`;return;}document.getElementById(listId).innerHTML=items.map(n=>`<div class="note-card"><div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px;"><div class="ct" style="font-size:13px;">${n.title}</div></div><div class="cb" style="font-size:12px;">${n.body||""}</div><div class="note-meta">${n.user} · ${new Date(n.ts).toLocaleDateString("es-CO")}</div></div>`).join("");}
+function renderSongList(items,listId){if(!items.length){document.getElementById(listId).innerHTML=`<div class="loading" style="color:var(--tx3);">No hay canciones aún.</div>`;return;}document.getElementById(listId).innerHTML=items.map(s=>`<div class="note-card"><div style="display:flex;gap:10px;align-items:center;"><i class="ti ti-music" style="font-size:20px;color:var(--gold);"></i><div><div class="ct" style="font-size:13px;">${s.title}</div><div style="font-size:12px;color:var(--tx3);">${s.artist||""}</div></div></div>${s.note?`<div class="cb" style="font-size:12px;margin-top:7px;">${s.note}</div>`:""}<div class="note-meta">${s.user} · ${new Date(s.ts).toLocaleDateString("es-CO")}</div></div>`).join("");}
+window.addSong=async function(){const t=document.getElementById("son-t").value.trim();if(!t)return;await addDoc(collection(db,"songs"),{title:t,artist:document.getElementById("son-a").value.trim(),note:document.getElementById("son-n").value.trim(),user:U[ST.user]?.name||"",ts:new Date().toISOString()});["son-t","son-a","son-n"].forEach(id=>document.getElementById(id).value="");showToast("Canción guardada ✓");loadNotes("songs","songs-list",renderSongList);};
+
+function renderTlList(items,listId){const sorted=[...items].sort((a,b)=>a.date.localeCompare(b.date));if(!sorted.length){document.getElementById(listId).innerHTML=`<div class="loading" style="color:var(--tx3);">La historia empieza aquí.</div>`;return;}document.getElementById(listId).innerHTML=sorted.map((m,i)=>`<div class="tl-wrap"><div class="tl-spine"><div class="tl-dot"></div>${i<sorted.length-1?'<div class="tl-line"></div>':''}</div><div class="card" style="flex:1;margin-bottom:0;"><div style="font-size:11px;color:var(--tx3);margin-bottom:4px;font-family:sans-serif;">${new Date(m.date+"T12:00:00").toLocaleDateString("es-CO",{year:"numeric",month:"long",day:"numeric"})}</div><div class="ct" style="font-size:13px;">${m.title}</div>${m.body?`<div class="cb" style="font-size:12px;">${m.body}</div>`:""}</div></div>`).join("");}
+window.addTl=async function(){const d=document.getElementById("tl-d").value,t=document.getElementById("tl-t").value.trim(),b=document.getElementById("tl-b").value.trim();if(!d||!t)return;await addDoc(collection(db,"timeline"),{date:d,title:t,body:b,user:U[ST.user]?.name||"",ts:new Date().toISOString()});["tl-d","tl-t","tl-b"].forEach(id=>document.getElementById(id).value="");showToast("Momento guardado ✓");loadNotes("timeline","tl-list",renderTlList);};
+
+function initExp(){if(!ST.expInit){document.getElementById("exp-picker").innerHTML=expAll.map((e,i)=>`<div class="exp-row" onclick="togExpSel(${i})" id="ep${i}"><div class="exp-cb" id="epc${i}"></div><div class="exp-tx">${e}</div></div>`).join("");ST.expInit=true;}loadExpList();}
+window.togExpSel=function(i){expSel[i]=!expSel[i];const cb=document.getElementById("epc"+i);cb.classList.toggle("done",expSel[i]);cb.innerHTML=expSel[i]?'<i class="ti ti-check" style="font-size:12px;color:white;"></i>':"";}; 
+window.addSelExp=async function(){for(let i=0;i<expAll.length;i++){if(expSel[i]){const exists=expList.find(x=>x.label===expAll[i]);if(!exists)await addDoc(collection(db,"experiences"),{label:expAll[i],done:false,user:U[ST.user]?.name||"",ts:new Date().toISOString()});}}document.getElementById("exp-picker-wrap").style.display="none";loadExpList();showToast("Experiencias agregadas ✓");};
+window.addCustExp=async function(){const v=document.getElementById("exp-new").value.trim();if(!v)return;await addDoc(collection(db,"experiences"),{label:v,done:false,user:U[ST.user]?.name||"",ts:new Date().toISOString()});document.getElementById("exp-new").value="";loadExpList();showToast("Experiencia agregada ✓");};
+window.togExpDone=async function(id,done){await updateDoc(doc(db,"experiences",id),{done:!done});loadExpList();};
+async function loadExpList(){try{const snap=await getDocs(collection(db,"experiences"));expList.length=0;snap.docs.forEach(d=>expList.push({id:d.id,...d.data()}));const done=expList.filter(e=>e.done).length;document.getElementById("exp-done").textContent=done;document.getElementById("exp-tot").textContent=expList.length;document.getElementById("exp-prog").style.width=(expList.length?Math.round(done/expList.length*100):0)+"%";document.getElementById("exp-list").innerHTML=expList.map(e=>`<div class="exp-row" onclick="togExpDone('${e.id}',${e.done})"><div class="exp-cb${e.done?" done":""}"><i class="ti ti-check" style="font-size:12px;color:${e.done?"white":"transparent"};"></i></div><div class="exp-tx${e.done?" done":""}">${e.label}</div></div>`).join("");}catch(e){console.error(e);}}
+
+window.renderMemory=async function(){
+  const mc=document.getElementById("mem-content");mc.innerHTML=`<div class="loading"><div class="spinner"></div>Cargando recuerdos...</div>`;
+  try{
+    const[carSnap,gameSnap,propSnap]=await Promise.all([getDoc(doc(db,"nightMemory","carAnswers")),getDoc(doc(db,"nightMemory","gameAnswers")),getDoc(doc(db,"nightMemory","proposal"))]);
+    const carD=carSnap.exists()?carSnap.data():null;const gameD=gameSnap.exists()?gameSnap.data():null;const propD=propSnap.exists()?propSnap.data():null;
+    let html="";
+    if(carD){html+=`<div style="font-size:11px;color:var(--tx3);letter-spacing:.07em;font-family:sans-serif;margin-bottom:5px;">TRAYECTO — ${U.paula.name.toUpperCase()}</div>`;html+=carQs.map((q,i)=>`<div class="mem-card"><div class="mem-q">${q}</div><div class="mem-a">${carD.paula?.[i]||"—"}</div></div>`).join("");html+=`<div style="font-size:11px;color:var(--tx3);letter-spacing:.07em;font-family:sans-serif;margin:8px 0 5px;">${U.felipe.name.toUpperCase()}</div>`;html+=carQs.map((q,i)=>`<div class="mem-card"><div class="mem-q">${q}</div><div class="mem-a">${carD.felipe?.[i]||"—"}</div></div>`).join("");}
+    if(gameD){html+=`<div style="font-size:11px;color:var(--tx3);letter-spacing:.07em;font-family:sans-serif;margin:8px 0 5px;">TEST — ${U.paula.name.toUpperCase()} ADIVINÓ</div>`;html+=gQs.map((q,i)=>`<div class="mem-card"><div class="mem-q">${q}</div><div class="mem-a">${gameD.paula?.[i]||"—"}</div></div>`).join("");html+=`<div style="font-size:11px;color:var(--tx3);letter-spacing:.07em;font-family:sans-serif;margin:8px 0 5px;">${U.felipe.name.toUpperCase()} RESPONDIÓ</div>`;html+=gQs.map((q,i)=>`<div class="mem-card"><div class="mem-q">${q}</div><div class="mem-a">${gameD.felipe?.[i]||"—"}</div></div>`).join("");}
+    if(propD){html+=`<div style="font-size:11px;color:var(--tx3);letter-spacing:.07em;font-family:sans-serif;margin:8px 0 5px;">LA RESPUESTA</div>`;html+=`<div class="mem-card" style="text-align:center;"><i class="ti ti-heart" style="font-size:26px;color:var(--gold);display:block;margin-bottom:7px;"></i><strong style="color:var(--gold);font-size:17px;">${propD.answer||"—"}</strong><div style="font-size:12px;color:var(--tx3);margin-top:5px;">La respuesta que cambió todo.</div></div>`;}
+    if(!html)html=`<div class="mem-card" style="text-align:center;"><div class="cb" style="color:var(--tx3);">Los recuerdos de esa noche especial aparecerán aquí.</div></div>`;
+    html+=`<div class="card" style="background:var(--bg2);border-color:var(--gold3);text-align:center;"><div class="cb" style="font-size:12px;color:var(--tx3);">Solo lectura — un recuerdo que no se edita.</div></div>`;
+    mc.innerHTML=html;
+  }catch(e){mc.innerHTML=`<div class="loading">Error cargando recuerdos.</div>`;}
+};
+
+// Inicializar línea de tiempo con fecha de conocerse
+getDoc(doc(db,"appState","tlInit")).then(snap=>{
+  if(!snap.exists()){
+    addDoc(collection(db,"timeline"),{date:"2024-11-27",title:"Nos conocimos",body:"El día que todo comenzó — nuestra primera cita.",user:"Sistema",ts:new Date("2024-11-27").toISOString()});
+    setDoc(doc(db,"appState","tlInit"),{done:true});
+  }
+}).catch(()=>{});
+</script>
+</body>
+</html>
