@@ -485,8 +485,8 @@ window.tryLogin=async function(){
   document.getElementById("login-loading").style.display="block";
   try{
     const u=USERS[ST.user];
-    try{await signInWithEmailAndPassword(auth,u.email,u.pass);}
-    catch(e){if(["auth/user-not-found","auth/invalid-credential","auth/invalid-email","auth/INVALID_LOGIN_CREDENTIALS"].includes(e.code)){await createUserWithEmailAndPassword(auth,u.email,u.pass);}else throw e;}
+    try{await createUserWithEmailAndPassword(auth,u.email,u.pass);}
+    catch(e){if(e.code==="auth/email-already-in-use"){await signInWithEmailAndPassword(auth,u.email,u.pass);}else throw e;}
     const snap=await getDoc(doc(db,"users",ST.user));
     if(snap.exists()&&snap.data().name)U[ST.user].name=snap.data().name;
     const stSnap=await getDoc(doc(db,"appState","main"));
