@@ -654,7 +654,7 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catc
 // Init línea de tiempo
 getDoc(doc(db,"appState","tlInit")).then(snap=>{
   if(!snap.exists()){
-    addDoc(collection(db,"timeline"),{date:"2024-11-27",title:"Nos conocimos",body:"El día que todo comenzó — nuestra primera cita.",user:"Sistema",ts:new Date("2024-11-27").toISOString()});
+    addDoc(collection(db,"timeline"),{date:"2025-11-27",title:"Nos conocimos",body:"El día que todo comenzó — nuestra primera cita.",user:"Sistema",ts:new Date("2024-11-27").toISOString()});
     setDoc(doc(db,"appState","tlInit"),{done:true});
   }
 }).catch(()=>{});
