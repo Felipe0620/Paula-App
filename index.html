@@ -143,7 +143,7 @@ html,body{height:100%;background:var(--bg);font-family:Georgia,serif;overflow:hi
 
   <div class="pg" id="pg-welcome">
     <div style="padding-top:4px;"><div class="logo-t">Bienvenida, <span id="wname">Huggies</span></div></div>
-    <div class="card"><div class="cb">El día de hoy tendrás una experiencia especial e interactiva. Yo te acompañaré en esta noche para que todo sea más sencillo y puedas desbloquear cada sección diseñada específicamente para ti.</div></div>
+    <div class="card"><div class="cb">El día de hoy tendrás una experiencia especial e interactiva. Yo te acompañaré en esta noche para que todo sea más sencillo y puedas desbloquear cada sección diseñada específicamente para ti. Tienes que estar lista antes de las 7:00 PM.</div></div>
     <div class="bg" onclick="goTo('pg-dress')">Comencemos</div>
   </div>
 
@@ -158,7 +158,7 @@ html,body{height:100%;background:var(--bg);font-family:Georgia,serif;overflow:hi
       <div style="font-size:12px;color:var(--tx3);margin-top:6px;font-family:sans-serif;min-height:20px;" id="stitch-txt"></div>
     </div>
     <div id="rdy" style="display:none;">
-      <div class="card"><div class="cb">¿Ya estás con Felipe? Responde solo cuando estés con él.</div></div>
+      <div class="card"><div class="cb">¿Ya estás lista? Responde solo cuando estés lista.</div></div>
       <div class="bg" onclick="goTo('pg-car')" style="margin-top:8px;">Sí, ya estoy con él</div>
     </div>
     <audio id="aud-120" src="stitch-120.mp4" preload="auto"></audio>
@@ -170,7 +170,7 @@ html,body{height:100%;background:var(--bg);font-family:Georgia,serif;overflow:hi
 
   <div class="pg" id="pg-car">
     <div style="font-size:11px;color:var(--tx3);letter-spacing:.07em;font-family:sans-serif;">TRAYECTO AL RESTAURANTE</div>
-    <div class="card"><div class="cb">Asumo que fuiste sincera y ya estás con Felipe. En estos momentos se dirigen al restaurante. Es buen momento para que contestes unas preguntas:</div></div>
+    <div class="card"><div class="cb">Asumo que fuiste sincera y ya estás con Felipe. En estos momentos se dirigen a un restaurante. Es buen momento para que contestes unas preguntas:</div></div>
     <div class="prog"><div class="pf" id="qprog" style="width:0%"></div></div>
     <div id="pqs">
       <div style="font-size:11px;color:var(--tx3);margin-bottom:8px;font-family:sans-serif;">TUS RESPUESTAS, <span id="pqlbl">HUGGIES</span></div>
@@ -182,7 +182,7 @@ html,body{height:100%;background:var(--bg);font-family:Georgia,serif;overflow:hi
       <div class="bg" onclick="showFQ()">Listo, respondí todo</div>
     </div>
     <div id="fqs" style="display:none;">
-      <div class="card" style="border-color:var(--gold3);margin-bottom:9px;"><div class="cb" style="text-align:center;">Ahora es el turno de <strong style="color:var(--gold);" id="fqlbl">Felipe</strong>.<br><strong style="color:var(--gold);">Entrégale el celular.</strong></div></div>
+      <div class="card" style="border-color:var(--gold3);margin-bottom:9px;"><div class="cb" style="text-align:center;">Ahora es el turno de <strong style="color:var(--gold);" id="fqlbl">Felipe</strong>.<br><strong style="color:var(--gold);">Debe estar conduciendo, asi que ayudale escribiendo sus respuestas.</strong></div></div>
       <div style="font-size:11px;color:var(--tx3);margin-bottom:8px;font-family:sans-serif;">RESPUESTAS DE <span id="fqlbl2">FELIPE</span></div>
       <div class="card" style="margin-bottom:8px;"><div class="cb" style="margin-bottom:6px;">¿Cuál ha sido tu momento favorito con <span class="pref">Huggies</span>?</div><textarea class="qa" rows="2" id="fq0" placeholder="Felipe responde..."></textarea></div>
       <div class="card" style="margin-bottom:8px;"><div class="cb" style="margin-bottom:6px;">¿Qué pensaste la primera vez que viste a <span class="pref">Huggies</span>?</div><textarea class="qa" rows="2" id="fq1" placeholder="Felipe responde..."></textarea></div>
@@ -192,7 +192,7 @@ html,body{height:100%;background:var(--bg);font-family:Georgia,serif;overflow:hi
       <div class="bg" onclick="showScores()">Ver resultados juntos</div>
     </div>
     <div id="sc-area" style="display:none;">
-      <div class="card" style="border-color:var(--gold3);margin-bottom:9px;"><div class="cb" style="text-align:center;color:var(--gold);">Lean las respuestas juntos y marquen si coincidieron.</div></div>
+      <div class="card" style="border-color:var(--gold3);margin-bottom:9px;"><div class="cb" style="text-align:center;color:var(--gold);">Lee las respuestas en voz alta y marca si coincidieron.</div></div>
       <div id="sc-cards"></div>
       <div id="sc-summary" style="display:none;"></div>
       <div id="leaving-blk" style="display:none;">
@@ -228,7 +228,6 @@ html,body{height:100%;background:var(--bg);font-family:Georgia,serif;overflow:hi
     <div class="card"><div class="ct">Ya que están allá...</div><div class="cb">Tómense un par de fotos. Conociéndote... hasta que salga una bonita jaja. Documenta todo lo que consideres importante.</div></div>
     <div class="card"><div class="ct">Instrucciones para la cena</div>
       <div class="ir"><div class="in">1</div><div class="it">Mira la carta y escoge lo que quieras.</div></div>
-      <div class="ir"><div class="in">2</div><div class="it">Cuéntale tu día a Felipe, normalmente él habla mucho, así que es tu momento.</div></div>
       <div class="ir"><div class="in">3</div><div class="it">Disfruta tu comida y prueba un poco de la de él. OJO — hablo DE LA COMIDAAA 🙈</div></div>
       <div class="ir"><div class="in">4</div><div class="it">Una vez terminen, pídele a Felipe la tarjeta con el código.</div></div>
     </div>
@@ -267,7 +266,7 @@ html,body{height:100%;background:var(--bg);font-family:Georgia,serif;overflow:hi
   </div>
 
   <div class="pg" id="pg-home">
-    <div class="card"><div class="cb">Espero que hayan pasado una noche increíble. Nuestra experiencia interactiva está llegando a su fin...<br><br>Una vez lleguen a la puerta de la casa con Felipe, antes de ingresar pídele el siguiente código.</div></div>
+    <div class="card"><div class="cb">Espero que hayan pasado una noche increíble. Nuestra experiencia interactiva está llegando a su fin...<br><br>Una vez lleguen a la puerta de la habitación del hotel, antes de ingresar pídele el siguiente código a Felipe.</div></div>
     <div><div class="lbl">SEGUNDO CÓDIGO</div>
       <input class="fi" id="c2-in" placeholder="Código de la segunda tarjeta..." style="text-transform:uppercase;">
       <div class="err" id="c2-err">Ese no es... pídéselo de nuevo</div>
@@ -285,14 +284,14 @@ html,body{height:100%;background:var(--bg);font-family:Georgia,serif;overflow:hi
       <div class="bg" onclick="chkR(1)" style="margin-top:9px;">Responder</div>
     </div>
     <div id="r2" style="display:none;">
-      <div class="card"><div class="ct">Acertijo 2 de 3</div><div class="cb">Hay un lugar en Colombia donde el agua tiene color esmeralda y el frío se siente en los huesos, pero ese día el corazón de alguien entró en calor. ¿Cuál es ese lugar mágico? (Pista: Busca en el cajón de los cubiertos, ah y la respuesta son 3 palabras)</div></div>
+      <div class="card"><div class="ct">Acertijo 2 de 3</div><div class="cb">Hay un lugar en Colombia donde el agua tiene color esmeralda y el frío se siente en los huesos, pero ese día el corazón de alguien entró en calor. ¿Cuál es ese lugar mágico? (Pista: Busca en los cajones de las mesas de noche, ah y la respuesta son 3 palabras)</div></div>
       <input class="fi" id="r2-in" placeholder="Tu respuesta...">
       <div class="err" id="r2-err">Piensa... fue un viaje. Frío. Especial.</div>
       <div class="ok2" id="r2-ok">✓ Exacto. Pista: busca en el cajón de los cubiertos</div>
       <div class="bg" onclick="chkR(2)" style="margin-top:9px;">Responder</div>
     </div>
     <div id="r3" style="display:none;">
-      <div class="card"><div class="ct">Acertijo 3 de 3</div><div class="cb">Empezó como un match en una app, pero terminó siendo el match más importante de su vida. ¿Cómo se llama esa app donde todo comenzó? (Pista: Busca en el computador personal de Felipe)</div></div>
+      <div class="card"><div class="ct">Acertijo 3 de 3</div><div class="cb">Empezó como un match en una app, pero terminó siendo el match más importante de su vida. ¿Cómo se llama esa app donde todo comenzó? (Pista: Busca en el computador corporativo de Felipe)</div></div>
       <input class="fi" id="r3-in" placeholder="Tu respuesta...">
       <div class="err" id="r3-err">Vamos... esa app la tienes instalada todavía</div>
       <div class="ok2" id="r3-ok">✓ Bien. Pista: busca en el computador de Felipe (debe estar encendido)</div>
